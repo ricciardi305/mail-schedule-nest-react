@@ -11,3 +11,30 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.container {
+  @apply w-full max-w-7xl m-auto py-8;
+}
+
+.container h1 {
+  @apply text-3xl font-bold text-gray-800;
+}
+
+.form {
+  @apply py-8;
+}
+
+.form label {
+  @apply block py-2;
+}
+
+.form input {
+  @apply w-full border border-gray-100 p-2 mb-1 rounded-md;
+}
+
+.form button {
+  @apply mt-4;
+}
+
+.error-text {
+  @apply text-red-600 text-sm py-1;
+}
