@@ -3,6 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { Button, DateTimePicker, Nav, RichInput } from 'components';
 import { WriteNowResolver } from 'validations';
 import { IWriteNowForm } from 'interfaces';
+import { MailsService } from 'services';
 
 export function WriteNowPage() {
   const formMethods = useForm<IWriteNowForm>({ resolver: WriteNowResolver });
@@ -10,10 +11,15 @@ export function WriteNowPage() {
     formState: { errors },
     register,
     handleSubmit,
+    reset,
   } = formMethods;
 
-  function onSubmit(values: any) {
-    console.log('On submit', values);
+  async function onSubmit(values: IWriteNowForm) {
+    const { status, data } = await MailsService.sendEmail(values);
+
+    if (status === 201) {
+      reset();
+    }
   }
   return (
     <>

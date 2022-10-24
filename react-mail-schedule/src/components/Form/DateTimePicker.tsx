@@ -1,7 +1,10 @@
-import DatePicker from 'react-datepicker';
-
+import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import ptBR from 'date-fns/locale/pt-BR';
+
 import { Controller, useFormContext } from 'react-hook-form';
+
+registerLocale('pt-BR', ptBR);
 
 type Props = {
   name: string;
@@ -13,11 +16,18 @@ export function DateTimePicker({ name }: Props) {
     <Controller
       name={name}
       control={control}
+      defaultValue={new Date().setMinutes(30)}
       render={({ field: { onChange, value } }) => (
         <DatePicker
-          selected={value}
+          showTimeSelect
+          locale="pt-BR"
+          dateFormat="Pp"
+          selected={new Date(value)}
           onChange={(date: Date) => {
-            onChange(date);
+            onChange(date.toISOString());
+          }}
+          onKeyDown={(e) => {
+            e.preventDefault();
           }}
         />
       )}
